@@ -92,8 +92,8 @@ export const updateProductQuantityController = async (req, res, next) =>{
   try {
       const { cid, pid } = req.params;
       const { quantity } = req.body;
-      const res = await updateProductQuantityService (cid, pid, quantity);
-      res.json(res);
+      const newQty = await updateProductQuantityService (cid, pid, quantity);
+      res.json(newQty);
   } catch (error) {
       next(error);
   }

@@ -88,32 +88,10 @@ export default class CartDao {
   async updateProductQuantity(cid, pid, quantity) {
     try {
       let result = await CartsModel.updateOne(
-        { _id: cid, "products.product": pid },
-        { $inc: { "products.$.quantity": quantity} }
+        { _id: cid, "products._id": pid },
+        { $set: { "products.$.quantity": quantity } }
       );
-      return { success: `La cantidad del producto a sido actualizada`, payload: result };
-      /*const findCart = await CartsModel.findById (cid);
-      console.log(findCart)
-      const proInCart = findCart.products.find (({product}) => product.id.toString() === pid);
-      console.log(proInCart)
-      if (proInCart) {
-        proInCart.quantity = quantity;
-        if (proInCart.quantity > 1){
-          await CartsModel.updateOne(
-            {_id: cid, 'products._id': pid},
-            {$set: {'products.$.quantity': quantity}}
-          );
-        } else {
-          await CartsModel.findOneAndUpdate(
-            {_id: cid},
-            {$pull: {products: {_id: pid}}},
-        );
-        }
-        const cartUpdate = await CartsModel.findById(cartId).populate('products._id')
-        return cartUpdate*/
-        //await currentCart.save();
-        //return currentCart;
-      //}
+      return { success: `The product quantity was successfully updated`, payload: result };
     } catch (error) {
       return { error: error.message };
     }
