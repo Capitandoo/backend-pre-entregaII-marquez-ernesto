@@ -77,7 +77,7 @@ export default class CartDao {
     try {
       let result = await CartsModel.updateOne(
         { _id: cid },
-        { $push: { products: update } }
+        { $push: { "products.product": update } }
       );
       return { success: `El producto a sido actualizado`, payload: result };
     } catch (error) {
@@ -88,10 +88,10 @@ export default class CartDao {
   async updateProductQuantity(cid, pid, quantity) {
     try {
       let result = await CartsModel.updateOne(
-        { _id: cid, "products._id": pid },
+        { _id: cid, "products.product": pid },
         { $set: { "products.$.quantity": quantity } }
       );
-      return { success: `The product quantity was successfully updated`, payload: result };
+      return { success: `La cantidad del producto a sido actualizada`, payload: result };
     } catch (error) {
       return { error: error.message };
     }

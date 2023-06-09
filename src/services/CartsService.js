@@ -76,13 +76,13 @@ export const updateProductToCartService = async (cid, update) => {
     }
 }
 
-export const updateProductQuantityService = async (cid, update) => {
+export const updateProductQuantityService = async (cid, pid, quantity) => {
     try {
         let cart = await cartDao.getCartById(cid);
         if (!cart) {
             throw new Error("Cart not found!");
         } else {
-            const newCart = await cartDao.updateProductQuantity(cid, update);
+            const newCart = await cartDao.updateProductQuantity(cid, pid, quantity);
             return newCart;
         }
     } catch (error) {
