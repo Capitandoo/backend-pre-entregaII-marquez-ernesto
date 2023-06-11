@@ -75,9 +75,11 @@ export default class CartDao {
 
   async updateProductToCart(cid, update) {
     try {
+      
+      console.log(update)      
       let result = await CartsModel.updateOne(
         { _id: cid },
-        { $push: { "products.product": update } }
+        { $set: { "products.product" : update } }
       );
       return { success: `El producto a sido actualizado`, payload: result };
     } catch (error) {
@@ -97,13 +99,5 @@ export default class CartDao {
     }
   }
 
-  async addProToCart(cid, pid) {
-    try {
-      const cart = await CartsModel.findById(cid);
-      cart.products.push(pid);
-      cart.save();
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
 }

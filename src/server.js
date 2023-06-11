@@ -3,6 +3,7 @@ import { __dirname, pathMessages } from "./path.js";
 import { Server } from "socket.io";
 import handlebars from "express-handlebars";
 import { errorHandler } from "./middlewares/errorHandler.js";
+import bodyParser from "body-parser";
 import "./db/conexion.js";
 import chatRouter from "./routes/chatRouter.js";
 import productsRouter from "./routes/productsRouter.js";
@@ -25,6 +26,8 @@ const productDao = new ProductDao ();
 const messageDao = new MessagesDao ();
 //const messageDao = new MessageManager ();
 
+//app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));

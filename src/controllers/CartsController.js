@@ -63,28 +63,12 @@ export const deleteAllProductToCartController = async (req, res, next) => {
 export const updateProductToCartController = async (req, res, next) => {
   try {
     const cid = req.params.cid;
-    const {
-      title,
-      description,
-      price,
-      thumbnail,
-      code,
-      stock,
-      status,
-      category
-    } = req.body;
-    const update = await updateProductToCartService (cid, {
-      title,
-      description,
-      price,
-      thumbnail,
-      code,
-      stock,
-      status,
-      category});
+    const { data } = req.body;
+    const update = await updateProductToCartService (cid, data);
     res.json (update);
   } catch (error) {
     console.log (error);
+    next(error);
   }
 }
 
