@@ -62,13 +62,13 @@ export const deleteAllProductToCartService = async (cid) => {
     }
 }
 
-export const updateProductToCartService = async (cid, update) => {
+export const updateProductToCartService = async (cid, product) => {
     try {
         let cart = await cartDao.getCartById(cid);
         if (!cart) {
             throw new Error("Cart not found!");
         } else {
-            const newCart = await cartDao.updateProductToCart(cid, update);
+            const newCart = await cartDao.updateProductToCart(cid, product);
             return newCart;
         }
     } catch (error) {

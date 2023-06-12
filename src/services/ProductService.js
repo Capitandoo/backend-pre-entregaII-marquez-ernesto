@@ -7,9 +7,9 @@ const prodDao = new ProductDao();
 
 
 
-export const getAllService = async () => {
+export const getAllService = async (page, limit, key, value, sortField, sortOrder) => {
   try {
-    const docs = await prodDao.getProducts ();
+    const docs = await prodDao.getProducts (page, limit, key, value, sortField, sortOrder);
     return docs;
   } catch (error) {
     console.log(error);

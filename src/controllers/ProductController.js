@@ -8,8 +8,22 @@ import {
 
 export const getAllController = async (req, res, next) => {
   try {
-    const docs = await getAllService();
-    res.json(docs);
+    const { page, limit, key, value, sortField, sortOrder } = req.query;
+    const allProducts = await getAllService (page, limit, key, value, sortField, sortOrder);
+    const nextLink = allProducts.hasNextPage ? `http://localhost:8080/products?page=${allProducts.nextPage}` : null
+    const prevLink = allProducts.hasPrevPage ? `http://localhost:8080/products?page=${allProducts.prevPage}` : null
+    res.json ({
+      results: allProducts.docs,
+      info: {
+          count: allProducts.totalDocs,
+          pages: allProducts.totalPages,
+          actualPage: allProducts.page,
+          hasPrevPage: allProducts.hasPrevPage,
+          hasNextPage: allProducts.hasNextPage,
+          nextPageLink: nextLink,
+          prevPageLink: prevLink
+    }
+  });
   } catch (error) {
     next(error);
   }
